@@ -1,4 +1,0 @@
-INDEX VERSION 1.134+C:\Users\manju\OneDrive\Desktop\Employee Payroll System\.metadata\.plugins\org.eclipse.jdt.core
-3770943690.index
-483623216.index
-1865797976.index
