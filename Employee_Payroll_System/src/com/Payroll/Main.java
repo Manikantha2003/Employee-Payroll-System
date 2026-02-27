@@ -1,0 +1,107 @@
+package com.Payroll;
+
+import java.util.ArrayList;
+
+abstract class Employee{	
+	private String name;
+	private int id;
+	
+	Employee(String name, int id){    
+		this.name = name;
+		this.id = id;
+	}
+	
+	public String getName() {		
+		return name;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public abstract double calculateSalary();  //Abstract method
+		
+	@Override
+	public String toString() {
+		return "Employee [name="+name+", salary="+calculateSalary()+"]";
+	}
+}
+
+class FullTimeEmployee extends Employee{  //Sub class 
+	
+	 private double monthlySalary;
+	 
+	 public FullTimeEmployee(String name, int id, double monthlySalary) {
+		 super(name, id);
+		 this.monthlySalary = monthlySalary;
+	 }
+	 
+	 public double calculateSalary() {
+		 return monthlySalary;
+	 }
+}
+
+class PartTimeEmployee extends Employee {
+	private int hoursWorked;
+	private double hourlyRate;
+	
+	public PartTimeEmployee(String name, int id, int hoursWorked, double hourlyRate) {
+		super(name, id);
+		this.hoursWorked = hoursWorked;
+		this.hourlyRate = hourlyRate;
+	}
+	
+	public double calculateSalary() {
+		return hoursWorked * hourlyRate;
+	}
+}
+	
+class PayrollSystem{
+	private ArrayList<Employee> employeeList;
+	
+	public PayrollSystem() {
+		employeeList = new ArrayList<>();
+	}
+	
+	public void addEmployee(Employee employee) {
+		employeeList.add(employee);
+	}
+	
+	public void removeEmployee(int id) {
+		Employee employeeToRemove = null;
+		for(Employee employee : employeeList) {
+			if(employee.getId() == id) {
+				employeeToRemove = employee;
+				break;
+			}
+		}
+		if(employeeToRemove != null) {
+			employeeList.remove(employeeToRemove);
+		}
+	}
+	
+	public void displayEmployee() {
+		for(Employee employee : employeeList) {
+			System.out.println(employee);
+		}
+	}
+}
+
+public class Main {
+	public static void main(String[] args) {
+		PayrollSystem PS = new PayrollSystem();
+		FullTimeEmployee emp1 = new FullTimeEmployee("Manikantha", 2001, 55000.0);
+		PartTimeEmployee emp2 = new PartTimeEmployee("Vinayak", 2005, 5, 4000.0);
+		
+		PS.addEmployee(emp1);
+		PS.addEmployee(emp2);
+		
+		System.out.println("Initial Employees");
+		PS.displayEmployee();
+		
+		PS.removeEmployee(2005);
+		System.out.println("Remaining Employee Details");
+		PS.displayEmployee();
+	}
+
+}
